@@ -39,8 +39,8 @@ def random_date(start,l):
       l-=1
 
 
-@app.route("/<username>/experiments", methods=['GET', 'POST', 'PUT', 'UPDATE', 'DELETE'])
-@app.route("/<username>/experiments/<int:idexp>", methods=['GET', 'POST', 'PUT', 'UPDATE', 'DELETE'])
+@app.route("/<username>/experiments", methods=['GET', 'POST', 'PUT', 'UPDATE', 'DELETE', 'PATCH'])
+@app.route("/<username>/experiments/<int:idexp>", methods=['GET', 'POST', 'PUT', 'UPDATE', 'DELETE', 'PATCH'])
 def experiments_lists(username, idexp=None):
 
     if request.method == 'GET' and not idexp and username == "jperez":
@@ -72,6 +72,14 @@ def experiments_lists(username, idexp=None):
     if idexp == 2:
         d = {"error": False, "msg": "operacion realizada con exito", "data": "este es el experimentto"}
         return Response(json.dumps(d), status=200, mimetype='application/json')
+
+    #endpoint para crear experimento
+
+    if request.method == "PATCH":
+        print request.json
+        d = {"error": False, "msg": "operacion realizada con exito", "data": "este es el experimentto"}
+        return Response(json.dumps(d), status=200, mimetype='application/json')
+
 
 
 if __name__ == "__main__":
