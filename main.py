@@ -3,9 +3,21 @@ import json
 import uuid
 from random import randrange, choice
 import datetime
-app = Flask(__name__)
+from flask_socketio import SocketIO, emit, send
+from time import sleep
 
+app = Flask(__name__)
+#app.config['SECRET_KEY'] = 'secret!'
+socketio = SocketIO(app)
 users = {}
+
+
+@socketio.on('message')
+def handle_message(message):
+    for _ in range(30):
+        sleep(1)
+        send("soy el server")
+        print "este proceso esta activo"
 
 
 @app.route("/login", methods=['GET', 'POST', 'PUT'])
@@ -81,6 +93,5 @@ def experiments_lists(username, idexp=None):
         return Response(json.dumps(d), status=200, mimetype='application/json')
 
 
-
 if __name__ == "__main__":
-    app.run(debug=True)
+    socketio.run(app, debug=True)
