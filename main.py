@@ -5,19 +5,16 @@ from random import randrange, choice
 import datetime
 from flask_socketio import SocketIO, emit, send
 from time import sleep
+from random import uniform
 
 app = Flask(__name__)
-#app.config['SECRET_KEY'] = 'secret!'
 socketio = SocketIO(app)
 users = {}
 
 
-@socketio.on('message')
-def handle_message(message):
-    for _ in range(30):
-        sleep(1)
-        send("soy el server")
-        print "este proceso esta activo"
+@app.route("/<username>/vista_parcial")
+def handle_message(username):
+    return json.dumps([{"x": i, "y": uniform(0, 1)} for i in xrange((2**10)*8)])
 
 
 @app.route("/login", methods=['GET', 'POST', 'PUT'])
