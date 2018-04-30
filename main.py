@@ -15,7 +15,7 @@ users = {}
 
 @app.route("/<username>/vista_parcial")
 def handle_message(username):
-    return json.dumps([{"x": i, "y": uniform(0, 1)} for i in xrange((2**10)*8)])
+    return json.dumps([{"x": i, "y": uniform(0, 1)} for i in xrange(0,10)])
 
 
 @app.route("/login", methods=['GET', 'POST', 'PUT'])
